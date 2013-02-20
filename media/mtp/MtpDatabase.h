@@ -93,6 +93,8 @@ public:
 
     virtual MtpResponseCode         deleteFile(MtpObjectHandle handle) = 0;
 
+    virtual void                    SendMtpStorageState() = 0;
+
     virtual MtpObjectHandleList*    getObjectReferences(MtpObjectHandle handle) = 0;
 
     virtual MtpResponseCode         setObjectReferences(MtpObjectHandle handle,

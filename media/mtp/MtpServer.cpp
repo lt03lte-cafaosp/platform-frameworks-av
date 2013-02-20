@@ -1057,6 +1057,7 @@ MtpResponseCode MtpServer::doDeleteObject() {
         // Don't delete the actual files unless the database deletion is allowed
         if (result == MTP_RESPONSE_OK) {
             deletePath((const char *)filePath);
+            mDatabase->SendMtpStorageState();
         }
     }
 
