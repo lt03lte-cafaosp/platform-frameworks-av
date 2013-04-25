@@ -300,7 +300,7 @@ status_t LPAPlayer::start(bool sourceAlreadyStarted) {
 status_t LPAPlayer::seekTo(int64_t time_us) {
     Mutex::Autolock autoLock(mLock);
     ALOGV("seekTo: time_us %lld", time_us);
-
+/*
     if (mPositionTimeRealUs != 0) {
       //check for return conditions only if seektime
       // is set
@@ -312,7 +312,7 @@ status_t LPAPlayer::seekTo(int64_t time_us) {
           return OK;
       }
     }
-
+*/
     mSeeking = true;
     mSeekTimeUs = time_us;
     mPauseTime = mSeekTimeUs;
