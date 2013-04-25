@@ -312,7 +312,6 @@ status_t LPAPlayer::seekTo(int64_t time_us) {
         mLock.lock();
         return OK;
     }
-
     mSeeking = true;
     mSeekTimeUs = time_us;
     mPauseTime = mSeekTimeUs;
