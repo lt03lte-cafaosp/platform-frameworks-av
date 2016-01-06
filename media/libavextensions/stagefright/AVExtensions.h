@@ -35,7 +35,7 @@
 #include <media/IOMX.h>
 #include <camera/android/hardware/ICamera.h>
 #include <media/mediarecorder.h>
-#include <media/stagefright/MediaCodecSource.h>
+#include <media/stagefright/MetaData.h>
 #include "ESQueue.h"
 
 namespace android {
@@ -45,7 +45,6 @@ struct MediaCodec;
 struct ALooper;
 class MediaExtractor;
 class AudioParameter;
-class MetaData;
 class CameraParameters;
 class MediaBuffer;
 class CameraSource;
@@ -149,8 +148,14 @@ struct AVUtils {
     virtual void addDecodingTimesFromBatch(MediaBuffer * /*buf*/,
             List<int64_t> &/*decodeTimeQueue*/) {}
 
-    virtual bool canDeferRelease(const sp<MetaData> &/*meta*/) { return false; }
-    virtual void setDeferRelease(sp<MetaData> &/*meta*/) {}
+    virtual bool canDeferRelease(const sp<MetaData> &meta) {
+        int32_t deferRelease = false;
+        return meta->findInt32(kKeyCanDeferRelease, &deferRelease) && deferRelease;
+    }
+
+    virtual void setDeferRelease(sp<MetaData> &meta) {
+        meta->setInt32(kKeyCanDeferRelease, true);
+    }
 
     virtual bool isAudioMuxFormatSupported(const char *mime);
     virtual void cacheCaptureBuffers(sp<hardware::ICamera> camera, video_encoder encoder);
