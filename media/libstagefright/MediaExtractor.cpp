@@ -235,7 +235,7 @@ sp<MediaExtractor> MediaExtractor::CreateFromService(
 
     MediaExtractor *ret = NULL;
     AString extractorName;
-    if ((ret = AVFactory::get()->createExtendedExtractor(source, mime, meta)) != NULL) {
+    if ((ret = AVFactory::get()->createExtendedExtractor(source, mime, meta, flags)) != NULL) {
         ALOGI("Using extended extractor");
     } else if (meta.get() && meta->findString("extended-extractor-use", &extractorName)
             && (ret = FFMPEGSoftCodec::createExtractor(source, mime, meta)) != NULL) {
